@@ -9,12 +9,14 @@ object PostgresDB {
     private const val USER = "docker"
     private const val PASSWORD = "docker"
     private val carSQL = object {}.javaClass.getResource("/db/postgres/create-table-cars.sql").readText()
+    private val clientSQL = object {}.javaClass.getResource("/db/postgres/create-table-clients.sql").readText()
 
     init {
         try {
             DriverManager.getConnection(URL, USER, PASSWORD).use { connection ->
                 connection.createStatement().use { statement ->
                     statement.execute(carSQL)
+                    statement.execute(clientSQL)
                 }
             }
         } catch (e: SQLException) {

@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS clients (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    document VARCHAR(14) NOT NULL,
+    phone VARCHAR(11) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    complement VARCHAR(255) NOT NULL,
+    neighborhood VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    cep VARCHAR(8) NOT NULL
+);
