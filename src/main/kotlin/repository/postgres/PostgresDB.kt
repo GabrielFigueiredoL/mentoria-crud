@@ -1,5 +1,6 @@
 package org.gabrielfigueiredol.repository.postgres
 
+import java.nio.file.Files
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
@@ -10,6 +11,8 @@ object PostgresDB {
     private const val PASSWORD = "docker"
     private val carSQL = object {}.javaClass.getResource("/db/postgres/create-table-cars.sql").readText()
     private val clientSQL = object {}.javaClass.getResource("/db/postgres/create-table-clients.sql").readText()
+    private val transactionsSQL = object {}.javaClass.getResource("/db/postgres/create-table-transactions.sql").readText()
+
 
     init {
         try {
@@ -17,6 +20,7 @@ object PostgresDB {
                 connection.createStatement().use { statement ->
                     statement.execute(carSQL)
                     statement.execute(clientSQL)
+                    statement.execute(transactionsSQL)
                 }
             }
         } catch (e: SQLException) {

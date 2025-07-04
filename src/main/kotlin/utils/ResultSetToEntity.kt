@@ -2,9 +2,12 @@ package org.gabrielfigueiredol.utils
 
 import org.gabrielfigueiredol.domain.Car
 import org.gabrielfigueiredol.domain.Client
+import org.gabrielfigueiredol.domain.Transaction
 import org.gabrielfigueiredol.enums.Brand
+import org.gabrielfigueiredol.enums.TransactionType
 import org.gabrielfigueiredol.enums.TransmissionType
 import java.sql.ResultSet
+import java.time.LocalDateTime
 
 object ResultSetToEntity {
     fun toCar(resultSet: ResultSet): Car {
@@ -33,6 +36,17 @@ object ResultSetToEntity {
             neighborhood = resultSet.getString("neighborhood"),
             city = resultSet.getString("city"),
             cep = resultSet.getString("cep"),
+        )
+    }
+
+    fun toTransaction(resultSet: ResultSet): Transaction {
+        return Transaction(
+            id = resultSet.getInt("id"),
+            transactionType = TransactionType.valueOf(resultSet.getString("transaction_type").uppercase()),
+            carId = resultSet.getInt("car_id"),
+            clientId = resultSet.getInt("client_id"),
+            priceInCents = resultSet.getInt("price_in_cents"),
+            dateTime = DateConverter.timeStampToKotlinLocalDateTime(resultSet.getTimestamp("date_time")),
         )
     }
 }
